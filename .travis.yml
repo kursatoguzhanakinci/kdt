@@ -11,7 +11,7 @@ script:
   - sha256sum kdt > kdt.sha256 
   - GOOS=windows GOARCH=amd64 go build -o kdt.exe
   - sha256sum kdt.exe > kdt.exe.sha256 
-  - docker build . -t kondukto/kondukto-cli:dev-$TRAVIS_TAG
+  - docker build . -t kondukto/kondukto-cli:dev
 
 
 after_success:
