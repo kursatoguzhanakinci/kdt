@@ -15,11 +15,11 @@ script:
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ]; then 
-      echo "Attempting to log in to $IMAGE_REGISTRY"
-      echo $DOCKER_PASSWORD | docker login -u=$DOCKER_USERNAME --pasword-stdin $IMAGE_REGISTRY
+      echo "Attempting to log in to $IMAGE_REGISTRY";
+      echo $DOCKER_PASSWORD | docker login -u=$DOCKER_USERNAME --pasword-stdin $IMAGE_REGISTRY;
 
-      echo "Pushing image to $IMAGE_REGISTRY"
-      docker push kondukto/kondukto-cli:$TRAVIS_TAG
+      echo "Pushing image to $IMAGE_REGISTRY";
+      docker push kondukto/kondukto-cli:$TRAVIS_TAG;
     fi 
 
 deploy:
