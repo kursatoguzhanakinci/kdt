@@ -11,10 +11,12 @@ script:
   - sha256sum kdt > kdt.sha256 
   - GOOS=windows GOARCH=amd64 go build -o kdt.exe
   - sha256sum kdt.exe > kdt.exe.sha256 
+  - docker build . -t kondukto/kondukto-cli:dev-$TRAVIS_TAG
 
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ]; then 
+      export IMAGE_REGISTRY="docker";
       echo "Attempting to log in to $IMAGE_REGISTRY";
       echo $DOCKER_PASSWORD | docker login -u=$DOCKER_USERNAME --pasword-stdin $IMAGE_REGISTRY;
 
