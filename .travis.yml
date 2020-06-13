@@ -2,12 +2,25 @@ language: go
 go:
   - 1.13.x
 
+services:
+  - docker
+
 script:
   - export GO111MODULE=on
   - GOOS=linux GOARCH=amd64 go build -o kdt
   - sha256sum kdt > kdt.sha256 
   - GOOS=windows GOARCH=amd64 go build -o kdt.exe
   - sha256sum kdt.exe > kdt.exe.sha256 
+
+
+after_success:
+  - if [ $TRAVIS_BRANCH == "master" ]; then 
+      echo "Attempting to log in to $IMAGE_REGISTRY"
+      echo $DOCKER_PASSWORD | docker login -u=$DOCKER_USERNAME --pasword-stdin $IMAGE_REGISTRY
+
+      echo "Pushing image to $IMAGE_REGISTRY"
+      docker push kondukto/kondukto-cli:$TRAVIS_TAG
+    fi 
 
 deploy:
   provider: releases
@@ -21,4 +34,5 @@ deploy:
   skip_cleanup: true
   draft: true
   on:
-    branch: master
+    tags: true
+    #branch: master
