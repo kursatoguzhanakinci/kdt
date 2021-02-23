@@ -23,7 +23,7 @@ jobs:
       - name: Upload `get.sh`
         uses: nogsantos/scp-deploy@master
         with:
-          src: ./get.sh
+          src: get.sh
           remote: ${{ secrets.SSH_REMOTE }}
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USER }}
