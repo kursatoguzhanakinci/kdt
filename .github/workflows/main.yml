@@ -3,7 +3,8 @@ name: Build and Release KDT
 # Controls when the action will run. 
 on:
   push:
-    branches: [ master ]
+    #branches: [ master ]
+    branches: [ bugfix/upload-get-sh ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,34 +20,6 @@ jobs:
           git fetch --prune --unshallow --tags
           echo GIT_TAG=$(git describe --tags --abbrev=0) >> $GITHUB_ENV 
 
-      - name: Build
-        run: |
-          make all
-          _release/kdt-linux version
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.GIT_TAG }}
-          release_name: Release ${{ env.GIT_TAG }}
-          prerelease: false
-          draft: true
-          body: |
-           Changes in release
-           - this
-
-      - name: Upload Release Assets
-        id: upload-release-assets 
-        uses: dwenegar/upload-release-assets@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          release_id: ${{ steps.create_release.outputs.id }}
-          assets_path: ./_release/
-
       - name: Upload `get.sh`
         uses: nogsantos/scp-deploy@master
         with:
@@ -55,14 +28,3 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-      - name: Build docker image
-        run: make image
-     
-      - name: Push to registry
-        run: |
-          docker push kondukto/kondukto-cli:${{ env.GIT_TAG }}
-          docker push kondukto/kondukto-cli:latest
