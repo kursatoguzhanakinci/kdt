@@ -22,11 +22,11 @@ jobs:
 
 
       - name: Upload get.sh
-      uses: appleboy/scp-action@master
-      env:
-        HOST: ${{ secrets.SSH_HOST }}
-        USERNAME: ${{ secrets.SSH_USER }}
-        KEY: ${{ secrets.SSH_KEY }}
-      with:
-        source: ./get.sh
-        target: ${{ secrets.SSH_REMOTE }}
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          KEY: ${{ secrets.SSH_KEY }}
+        with:
+          source: ./get.sh
+          target: ${{ secrets.SSH_REMOTE }}
