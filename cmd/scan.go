@@ -546,5 +546,6 @@ func printScanSummary(scan *client.Scan) {
 	_, _ = fmt.Fprintf(w, "---\t---\t---\t---\t---\t---\t---\t---\t---\t---\n")
 	_, _ = fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%d\t%d\t%d\t%d\t%d\t%s\n", scan.Name, scan.ID, scan.MetaData, scan.Tool,
 		scan.Summary.Critical, scan.Summary.High, scan.Summary.Medium, scan.Summary.Low, scan.Summary.Info, scan.Date)
+	_, _ = fmt.Fprintf(w, "Scan results can be found at %s/vulnerabilities/scan/607e81a744f9ef1414363019/appsec?page=1\n", os.Getenv("KONDUKTO_HOST"))
 	_ = w.Flush()
 }
