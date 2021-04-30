@@ -22,6 +22,7 @@ var listProjectsCmd = &cobra.Command{
 
 func init() {
 	listCmd.AddCommand(listProjectsCmd)
+	listCmd.AddCommand(listScannersCmd)
 }
 
 func projectsRootCommand(cmd *cobra.Command, args []string) {
