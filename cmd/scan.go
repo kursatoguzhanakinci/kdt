@@ -317,7 +317,7 @@ func passTests(scan *client.ScanDetail, cmd *cobra.Command) error {
 		return err
 	}
 
-	if cmd.Flag("threshold-risk").Changed {
+	if f := cmd.Flag("threshold-risk"); f != nil && f.Changed {
 		m, err := c.GetLastResults(scan.ID)
 		if err != nil {
 			return err
@@ -332,7 +332,7 @@ func passTests(scan *client.ScanDetail, cmd *cobra.Command) error {
 		}
 	}
 
-	if cmd.Flag("threshold-crit").Changed {
+	if f := cmd.Flag("threshold-crit"); f != nil && f.Changed {
 		crit, err := cmd.Flags().GetInt("threshold-crit")
 		if err != nil {
 			return err
@@ -342,7 +342,7 @@ func passTests(scan *client.ScanDetail, cmd *cobra.Command) error {
 		}
 	}
 
-	if cmd.Flag("threshold-high").Changed {
+	if f := cmd.Flag("threshold-high"); f != nil && f.Changed {
 		high, err := cmd.Flags().GetInt("threshold-high")
 		if err != nil {
 			return err
@@ -352,7 +352,7 @@ func passTests(scan *client.ScanDetail, cmd *cobra.Command) error {
 		}
 	}
 
-	if cmd.Flag("threshold-med").Changed {
+	if f := cmd.Flag("threshold-med"); f != nil && f.Changed {
 		med, err := cmd.Flags().GetInt("threshold-med")
 		if err != nil {
 			return err
@@ -362,7 +362,7 @@ func passTests(scan *client.ScanDetail, cmd *cobra.Command) error {
 		}
 	}
 
-	if cmd.Flag("threshold-low").Changed {
+	if f := cmd.Flag("threshold-low"); f != nil && f.Changed {
 		low, err := cmd.Flags().GetInt("threshold-low")
 		if err != nil {
 			return err
