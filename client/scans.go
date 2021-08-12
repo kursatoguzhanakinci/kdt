@@ -53,6 +53,7 @@ type (
 )
 
 func (c *Client) ListScans(project string) ([]Scan, error) {
+	// ListScans
 	scans := make([]Scan, 0)
 
 	path := fmt.Sprintf("/api/v1/projects/%s/scans", project)
@@ -183,6 +184,7 @@ func (c *Client) ImportScanResult(project, branch, tool string, files []string) 
 		if err != nil {
 			return err
 		}
+		// importScanResult
 		defer f.Close()
 		part, err := writer.CreateFormFile("files", filepath.Base(f.Name()))
 		if err != nil {
@@ -230,3 +232,5 @@ func (c *Client) ImportScanResult(project, branch, tool string, files []string) 
 
 	return nil
 }
+
+//EOF
