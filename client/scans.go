@@ -184,8 +184,7 @@ func (c *Client) ImportScanResult(project, branch, tool string, files []string) 
 		if err != nil {
 			return err
 		}
-		// importScanResult
-		defer f.Close()
+		// removed defer
 		part, err := writer.CreateFormFile("files", filepath.Base(f.Name()))
 		if err != nil {
 			return err
